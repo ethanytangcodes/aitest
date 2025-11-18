@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Team Perplexity - Competition Entry</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for clean typography -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, #22223b 0%, #4b6cb7 100%);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .header {
+      padding: 48px 0 16px 0;
+      text-align: center;
+      background: rgba(25, 63, 101, 0.65);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 2.8em;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #c9fdff;
+      text-shadow: 1px 2px 12px #28427e33;
+    }
+    .header h2 {
+      margin: 0;
+      font-size: 1.3em;
+      font-weight: 400;
+      color: #e6e9f0;
+      margin-top: 12px;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 36px auto;
+      background: rgba(255,255,255,0.07);
+      border-radius: 18px;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.18);
+      padding: 36px 28px 32px 28px;
+      backdrop-filter: blur(3px);
+    }
+
+    .team-card {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: rgba(0,0,0,0.14);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(51,51,89,0.13);
+    }
+    .team-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 3px solid #8bf1fc;
+      box-shadow: 0 2px 8px #17498a55;
+      background: #182b4d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      font-weight: 700;
+      color: #8bf1fc;
+    }
+
+    .team-info h3 {
+      margin: 0 0 4px 0;
+      font-size: 1.20em;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #d5f4ff;
+    }
+    .team-info p {
+      margin: 0;
+      font-size: 0.97em;
+      color: #eef7fc;
+      opacity: 0.85;
+    }
+
+    .cta {
+      text-align: center;
+      margin: 36px 0 8px 0;
+    }
+    .cta button {
+      background: linear-gradient(94deg, #27c6d7 0%, #5192fa 100%);
+      border: none;
+      color: #fff;
+      font-size: 1.23em;
+      padding: 14px 40px;
+      border-radius: 40px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 16px #2f4e8744;
+      cursor: pointer;
+      transition: background 0.17s, box-shadow 0.17s;
+    }
+    .cta button:hover {
+      background: linear-gradient(94deg, #19a1bc 0%, #385bb1 100%);
+      box-shadow: 0 4px 32px #12f0ff42;
+    }
+
+    .footer {
+      text-align: center;
+      color: #c1dfec;
+      font-size: 1em;
+      padding: 18px 0;
+      margin-top: 30px;
+      opacity: 0.8;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .container {
+        padding: 18px 6px 14px 6px;
+      }
+      .team-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .header h1 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Team Perplexity</h1>
+    <h2>Competition Entry – AI with Clarity & Precision</h2>
+  </div>
+  
+  <div class="container">
+    <div class="team-card">
+      <div class="team-avatar">P</div>
+      <div class="team-info">
+        <h3>Perplexity AI</h3>
+        <p>
+          Your source for accurate, concise, and trust-worthy answers.<br>
+          Harnessing the power of context-aware search and AI reasoning.
+        </p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">C</div>
+      <div class="team-info">
+        <h3>Comet Assistant</h3>
+        <p>
+          Advanced browser-based agent for smart multi-step tasks.<br>
+          Ready for data, logic, and automation.
+        </p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">U</div>
+      <div class="team-info">
+        <h3>You!</h3>
+        <p>
+          User-driven collaboration: your intentions, our platform.<br>
+          The feedback and curiosity that guide us to greatness.
+        </p>
+      </div>
+    </div>
+    <div class="cta">
+      <button onclick="alert('Team Perplexity welcomes you to the competition!')">
+        Join Our Mission
+      </button>
+    </div>
+  </div>
+  <div class="footer">
+    &copy; 2025 Team Perplexity. Built for innovation and clarity.
+  </div>
+</body>
+</html>
