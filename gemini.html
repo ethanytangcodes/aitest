@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Core AI Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Tailwind Configuration */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gemini-dark': '#0f172a', /* slate-900 */
+                        'gemini-accent': '#38bdf8', /* sky-400 */
+                        'gemini-light': '#e2e8f0',
+                        'gemini-card': '#1e293b', /* slate-800 */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon-sm': '0 0 5px rgba(56, 189, 248, 0.5)',
+                        'neon-lg': '0 0 15px rgba(56, 189, 248, 0.7)',
+                    }
+                }
+            }
+        }
+        /* Custom Scrollbar for a sleek look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #38bdf8;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gemini-dark text-gemini-light font-sans min-h-screen p-0 md:p-6 transition-all duration-300">
+
+    <div id="app-container" class="max-w-7xl mx-auto rounded-xl shadow-2xl bg-gemini-dark/95 border border-gemini-accent/20 overflow-hidden">
+
+        <!-- Header -->
+        <header class="p-4 md:p-6 flex justify-between items-center border-b border-gemini-card shadow-neon-sm">
+            <h1 class="text-2xl md:text-3xl font-extrabold flex items-center tracking-tight text-white">
+                <svg class="w-8 h-8 mr-2 text-gemini-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-1.996V21M5 9H3m2 6H3m18-6h-2m2 6h-2M7 11h2v2H7v-2zm10 0h2v2h-2v-2zm-6 0h2v2h-2v-2z"></path></svg>
+                Gemini Core
+            </h1>
+            <div class="text-sm font-medium text-green-400 flex items-center">
+                <span class="relative flex h-3 w-3 mr-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </span>
+                System: Online
+            </div>
+        </header>
+
+        <!-- Main Layout: Sidebar (Tabs) and Content -->
+        <main class="flex flex-col md:flex-row">
+
+            <!-- Sidebar / Tab Navigation -->
+            <nav class="bg-gemini-card p-4 md:p-6 md:w-64 flex flex-row md:flex-col space-x-2 md:space-x-0 md:space-y-4 overflow-x-auto border-r border-gemini-accent/10">
+                <button data-tab="overview" class="tab-button flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 active-tab">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    Overview
+                </button>
+                <button data-tab="analytics" class="tab-button flex items-center px-4 py-2 rounded-lg text-sm font-medium hover:bg-gemini-dark transition-all duration-200">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.944 9.944 0 0112 3c5.405 0 9.8 4.395 9.8 9.8s-4.395 9.8-9.8 9.8c-.378 0-.74-.029-1.094-.076L12 12M12 3a9.8 9.8 0 010 19.6"></path></svg>
+                    Analytics
+                </button>
+                <button data-tab="settings" class="tab-button flex items-center px-4 py-2 rounded-lg text-sm font-medium hover:bg-gemini-dark transition-all duration-200">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Configuration
+                </button>
+            </nav>
+
+            <!-- Content Area -->
+            <section id="content-area" class="flex-1 p-4 md:p-8 overflow-y-auto">
+
+                <!-- Overview Tab Content -->
+                <div id="overview" class="tab-content active-content">
+                    <h2 class="text-2xl font-bold mb-6 text-white border-b border-gemini-accent/20 pb-2">System Overview</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="stat-card">
+                            <h3 class="stat-title">Inference Rate</h3>
+                            <p id="inference-rate" class="stat-value">3,450/min</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="stat-title">Token Output</h3>
+                            <p id="token-output" class="stat-value">1.2M / hr</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="stat-title">Latency (Avg)</h3>
+                            <p id="latency" class="stat-value">45 ms</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="stat-title">Model Version</h3>
+                            <p id="model-version" class="stat-value text-gemini-accent">2.5-Flash</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                        <!-- Core Status Chart (Mock) -->
+                        <div class="lg:col-span-2 card">
+                            <h3 class="card-title">Core Resource Allocation</h3>
+                            <!-- Placeholder for a simple chart/graph -->
+                            <div class="h-64 flex items-center justify-center bg-gemini-card/50 rounded-lg border border-gemini-accent/20">
+                                <span class="text-gemini-accent text-lg font-mono">
+                                    [ Placeholder for Real-time Chart Data ]
+                                </span>
+                            </div>
+                            <div class="mt-4 flex justify-between text-sm text-gemini-light/70">
+                                <span>CPU: 75% Load</span>
+                                <span>Memory: 42% Used</span>
+                                <span>GPU: 98% Utilization</span>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="card">
+                            <h3 class="card-title">Quick Actions</h3>
+                            <div class="space-y-3">
+                                <button class="action-button bg-green-600 hover:bg-green-500">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    Restart Inference Engine
+                                </button>
+                                <button class="action-button bg-blue-600 hover:bg-blue-500">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                    Force Data Sync
+                                </button>
+                                <button class="action-button bg-red-600 hover:bg-red-500">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                    Halt All Operations
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab Content (Hidden by default) -->
+                <div id="analytics" class="tab-content hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-white border-b border-gemini-accent/20 pb-2">Deep Analytics</h2>
+
+                    <div class="card">
+                        <h3 class="card-title">Performance Log</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gemini-dark/50">
+                                <thead class="bg-gemini-card/70">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Timestamp</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Event Type</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gemini-card/50">
+                                    <tr class="hover:bg-gemini-card/50 transition duration-150">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">2025-11-17 15:45:01</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">LoadBalancer Ping</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-400">Success</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">2ms</td>
+                                    </tr>
+                                    <tr class="hover:bg-gemini-card/50 transition duration-150">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">2025-11-17 15:45:10</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">Model Retrain Start</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-400">Warning</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">N/A</td>
+                                    </tr>
+                                    <tr class="hover:bg-gemini-card/50 transition duration-150">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">2025-11-17 15:45:22</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">Inference Batch #199</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-400">Success</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">180ms</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="mt-4 text-xs text-gemini-light/50">Full logs available in /var/log/gemini-core</p>
+                    </div>
+                </div>
+
+                <!-- Settings Tab Content (Hidden by default) -->
+                <div id="settings" class="tab-content hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-white border-b border-gemini-accent/20 pb-2">Configuration</h2>
+
+                    <div class="card">
+                        <h3 class="card-title">Model Parameters</h3>
+                        <div class="space-y-4">
+                            <!-- Toggle 1 -->
+                            <div class="flex justify-between items-center border-b border-gemini-card/50 pb-3">
+                                <label for="temp-toggle" class="text-sm font-medium">Temperature Control</label>
+                                <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                    <input type="checkbox" name="temp-toggle" id="temp-toggle" checked class="toggle-checkbox" />
+                                    <label for="temp-toggle" class="toggle-label"></label>
+                                </div>
+                            </div>
+                            <!-- Input 1 -->
+                            <div>
+                                <label for="max-tokens" class="block text-sm font-medium mb-1">Max Output Tokens</label>
+                                <input type="number" id="max-tokens" value="2048" class="config-input" />
+                            </div>
+                            <!-- Slider 1 -->
+                            <div>
+                                <label for="creativity-slider" class="block text-sm font-medium mb-2">Creativity Level (<span id="creativity-value">0.7</span>)</label>
+                                <input type="range" id="creativity-slider" min="0.1" max="1.0" step="0.05" value="0.7" class="config-slider" oninput="document.getElementById('creativity-value').innerText = this.value"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Global Component Styles (Hidden from the body for organization) -->
+    <style>
+        /* Card component styling */
+        .card {
+            @apply p-6 bg-gemini-card rounded-xl shadow-lg border border-gemini-accent/20 mb-6 backdrop-blur-sm;
+        }
+        .card-title {
+            @apply text-xl font-semibold mb-4 text-gemini-accent border-b border-gemini-light/10 pb-2;
+        }
+
+        /* Stat Card styling */
+        .stat-card {
+            @apply card p-4 flex flex-col justify-center items-center text-center shadow-none border-0 bg-gemini-card/50 transition-all duration-300 hover:shadow-neon-sm hover:scale-[1.02];
+        }
+        .stat-title {
+            @apply text-sm font-light text-gemini-light/70 uppercase tracking-widest;
+        }
+        .stat-value {
+            @apply text-4xl font-extrabold text-white mt-1;
+        }
+
+        /* Action Button styling */
+        .action-button {
+            @apply w-full py-3 rounded-lg font-bold text-white flex items-center justify-center shadow-md transition-transform duration-150 ease-in-out transform hover:scale-[1.01] active:scale-95;
+        }
+
+        /* Tab button styling */
+        .tab-button {
+            @apply text-gemini-light/80;
+        }
+        .active-tab {
+            @apply bg-gemini-dark text-gemini-accent shadow-neon-sm;
+        }
+
+        /* Form Controls */
+        .config-input {
+            @apply w-full p-2 rounded-lg bg-gemini-dark border border-gemini-accent/30 text-white focus:ring-gemini-accent focus:border-gemini-accent;
+        }
+
+        /* Custom Toggle Switch (Pure CSS + Tailwind) */
+        .toggle-checkbox {
+            @apply absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer;
+            transition: all 0.3s ease;
+        }
+        .toggle-label {
+            @apply block overflow-hidden h-6 rounded-full bg-gemini-card cursor-pointer;
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            @apply border-gemini-dark;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            @apply bg-gemini-accent;
+        }
+        .config-slider {
+            @apply w-full h-2 bg-gemini-dark rounded-lg appearance-none cursor-pointer;
+        }
+        .config-slider::-webkit-slider-thumb {
+            @apply w-4 h-4 bg-gemini-accent rounded-full cursor-pointer shadow-neon-sm;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+    </style>
+
+    <!-- JavaScript for Tab Switching and Interactivity -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const contentArea = document.getElementById('content-area');
+
+            // Initial function to handle tab switching
+            function switchTab(targetTabId) {
+                // 1. Hide all content and deactivate all buttons
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                    content.classList.remove('active-content');
+                });
+                tabButtons.forEach(button => {
+                    button.classList.remove('active-tab');
+                    button.classList.add('hover:bg-gemini-dark');
+                    button.classList.remove('text-gemini-accent', 'shadow-neon-sm', 'font-semibold');
+                    button.classList.add('font-medium');
+                });
+
+                // 2. Show the target content and activate the corresponding button
+                const targetContent = document.getElementById(targetTabId);
+                const targetButton = document.querySelector(`[data-tab="${targetTabId}"]`);
+
+                if (targetContent) {
+                    targetContent.classList.remove('hidden');
+                    targetContent.classList.add('active-content');
+                }
+                if (targetButton) {
+                    targetButton.classList.add('active-tab');
+                    targetButton.classList.remove('hover:bg-gemini-dark');
+                    targetButton.classList.add('text-gemini-accent', 'shadow-neon-sm', 'font-semibold');
+                    targetButton.classList.remove('font-medium');
+                }
+
+                // Scroll to top of content area on tab switch for better UX
+                contentArea.scrollTop = 0;
+            }
+
+            // Attach click listeners to all buttons
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTabId = button.getAttribute('data-tab');
+                    switchTab(targetTabId);
+                });
+            });
+
+            // Set up mock actions
+            const actionButtons = document.querySelectorAll('.action-button');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const actionName = button.innerText.trim();
+                    alertBox(`Action Triggered: ${actionName}`, 'The system processed your request.');
+                });
+            });
+
+            // Custom Alert Box Function (Replacing forbidden alert())
+            function alertBox(title, message) {
+                const existingBox = document.getElementById('custom-alert-box');
+                if (existingBox) existingBox.remove();
+
+                const box = document.createElement('div');
+                box.id = 'custom-alert-box';
+                box.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-50 transition-opacity duration-300';
+                box.innerHTML = `
+                    <div class="bg-gemini-card p-6 rounded-xl max-w-sm w-full shadow-neon-lg border border-gemini-accent/50 animate-scale-in">
+                        <h4 class="text-xl font-bold mb-3 text-gemini-accent">${title}</h4>
+                        <p class="text-gemini-light/80 mb-6">${message}</p>
+                        <button id="close-alert" class="w-full py-2 bg-gemini-accent text-gemini-dark font-bold rounded-lg hover:bg-sky-300 transition-colors">
+                            Acknowledge
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(box);
+
+                document.getElementById('close-alert').addEventListener('click', () => {
+                    box.classList.add('opacity-0');
+                    setTimeout(() => box.remove(), 300);
+                });
+            }
+
+            // Initial call to ensure the first tab is active on load
+            switchTab('overview');
+
+            // Inject keyframe animation style for the alert box
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes scale-in {
+                    from { transform: scale(0.9); opacity: 0; }
+                    to { transform: scale(1); opacity: 1; }
+                }
+                .animate-scale-in {
+                    animation: scale-in 0.3s ease-out forwards;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
